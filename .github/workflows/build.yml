@@ -18,14 +18,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         shell: pwsh
-        run: .\build.ps1
+        run: .\\build.ps1
       - name: Upload installer artifact
         uses: actions/upload-artifact@v4
         with:
           name: Judgment-Arabic-Installer
           path: dist/Judgment-Arabic-Installer.exe
-      - name: Attach installer to GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish installer on GitHub Release
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || 'v1.0.0' }}
+          name: Judgment Arabic Installer v1.0.0
+          target_commitish: main
+          generate_release_notes: true
           files: dist/Judgment-Arabic-Installer.exe
