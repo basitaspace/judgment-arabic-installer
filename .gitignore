@@ -1,0 +1,21 @@
+# Private patch payload and copyrighted game resources
+private-payload/
+*.par
+*.dds
+*.zip
+*.sav
+*.bin
+
+# Build outputs
+dist/
+obj/
+bin/
+*.pdb
+*.user
+*.suo
+
+# Local/editor files
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
